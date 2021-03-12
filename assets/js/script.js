@@ -269,7 +269,7 @@ document.querySelector("#back").onclick = ()=> {
   document.getElementById("st1").currentTime = 0;
 };
 // Set Audio Function
-let isOnAudioArea = true;
+let isOnAudioArea;
 let isBlur = false;
 function audioPlayed() {
   document.getElementById("st1").play();
