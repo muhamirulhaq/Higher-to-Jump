@@ -70,9 +70,11 @@ playButton.onclick = ()=> {
           if(l < -10) l = 100;
           document.querySelector(".block").style.left = l + "%";
           document.querySelector("#player").style.backgroundColor = "rgb(255, 255, " + clr + ")";
-          l-=m;
-          m = 0.2 + (score/1000000);
-          if(clr > 0) clr = 255 - (parseInt(score/50));
+          if(!isBlur) {
+            l-=m;
+            m = 0.2 + (score/1000000);
+            if(clr > 0) clr = 255 - (parseInt(score/50));
+          }
         }
       }
     },1);
@@ -149,13 +151,13 @@ for(let i = 0; i < 4; i++) {
             isOnTheGround = true;
           }
           player.style.bottom = i + "px";
-          i += isGoDown ? -0.8 : i > 45 ? 0.2 : 0.8;
+          if(!isBlur) i += isGoDown ? -0.8 : i > 45 ? 0.2 : 0.8;
         },1);
         let j = 0;
         const myInterval2 = setInterval(()=> {
           if(j >= 180) clearInterval(myInterval2);
           player.style.transform = "rotate(" + j + "deg)";
-          j+=1.4;
+          if(!isBlur) j+=1.4;
         },1);
       }
     }
@@ -208,13 +210,13 @@ for(let i = 0; i < 4; i++) {
             isOnTheGround = true;
           }
           player.style.bottom = i + "px";
-          i += isGoDown ? -0.8 : i > 45 ? 0.2 : 0.8;
+          if(!isBlur) i += isGoDown ? -0.8 : i > 45 ? 0.2 : 0.8;
         },1);
         let j = 0;
         const myInterval2 = setInterval(()=> {
           if(j >= 180) clearInterval(myInterval2);
           player.style.transform = "rotate(" + j + "deg)";
-          j+=1.4;
+          if(!isBlur) j+=1.4;
         },1);
       }
     }
@@ -227,7 +229,7 @@ const scoreInterval = setInterval(()=> {
   if(isGameStarted) {
     if(!isLose) {
       document.querySelector("#your-score").innerHTML = score;
-      if(score < 999999999999999) score++;
+      if(score < 999999999999999 && !isBlur) score++;
       else {
         bestScore = "MAX SCORE";
         document.querySelector("#best-score").innerHTML = bestScore;
@@ -266,15 +268,20 @@ document.querySelector("#back").onclick = ()=> {
 };
 // Set Audio Function
 let isOnAudioArea = true;
+let isBlur = false;
 function audioPlayed() {
   document.getElementById("st1").play();
 }
 function audioPaused() {
   document.getElementById("st1").pause();
 }
-window.onblur = audioPaused;
+window.onblur = ()=> {
+  audioPaused();
+  isBlur = true;
+};
 window.onfocus = ()=> {
   if(isOnAudioArea) {
     audioPlayed();
   }
+  isBlur = false;
 };
