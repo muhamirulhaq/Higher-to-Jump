@@ -229,11 +229,13 @@ const scoreInterval = setInterval(()=> {
   if(isGameStarted) {
     if(!isLose) {
       document.querySelector("#your-score").innerHTML = score;
-      if(score < 999999999999999 && !isBlur) score++;
-      else {
-        bestScore = "MAX SCORE";
-        document.querySelector("#best-score").innerHTML = bestScore;
-        score = 0;
+      if(!isBlur) {
+        if(score < 999999999999999) score++;
+        else {
+          bestScore = "MAX SCORE";
+          document.querySelector("#best-score").innerHTML = bestScore;
+          score = 0;
+        }
       }
     } else {
       document.querySelector("#lose-notice").style.display = "block";
