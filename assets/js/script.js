@@ -40,6 +40,8 @@ window.onresize = ()=> {
 const page2 = document.querySelector("#page2");
 let audio1Loaded = false;
 let audio2Loaded = false;
+document.getElementById("st1").load();
+document.getElementById("st2").load();
 document.getElementById("st1").onprogress = ()=> {
   audio1Loaded = true;
 }
