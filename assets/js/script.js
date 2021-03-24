@@ -388,7 +388,10 @@ document.querySelector("#back").onclick = ()=> {
 let isOnAudioArea;
 let isBlur = false;
 function audioPlayed() {
-  if(!isAudioMuted) document.getElementById("st1").play();
+  if(!isAudioMuted) {
+    document.getElementById("st1").load();
+    document.getElementById("st1").play();
+  }
 }
 function audioPaused() {
   document.getElementById("st1").pause();
@@ -402,7 +405,10 @@ window.onfocus = ()=> {
   if(isOnAudioArea) {
     audioPlayed();
   } else {
-    if(!isAudioMuted) document.getElementById("st2").play();
+    if(!isAudioMuted) {
+      document.getElementById("st2").load();
+      document.getElementById("st2").play();
+    }
   }
   isBlur = false;
 };
