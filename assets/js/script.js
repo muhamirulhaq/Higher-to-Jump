@@ -39,34 +39,47 @@ window.onresize = ()=> {
 // Set Loading Animation
 const page1 = document.querySelector("#page1");
 const page2 = document.querySelector("#page2");
-// document.getElementById("st1").load();
-// document.getElementById("st2").load();
+document.getElementById("st1").load();
+document.getElementById("st2").load();
+let audio1Loaded = false;
+let audio2Loaded = false;
+document.getElementById("st1").onprogress = ()=> {
+  audio1Loaded = true;
+}
+document.getElementById("st2").onprogress = ()=> {
+  audio2Loaded = true;
+}
 window.onload = ()=> {
-  document.getElementById("simple-loading").style.display = "none";
-  document.getElementById("potrait-screen").style.display = "block";
-  document.getElementById("rule").style.fontSize = 5.5 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("play-button").style.fontSize = 20 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("math-dash").style.fontSize = 11 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("game-developer").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("email").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("github").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("property1").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("property2").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("property3").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.querySelector(".info-heading").style.fontSize = 9 / 100 * document.getElementById("rule").offsetWidth + "px";
-  document.getElementById("play-button").onmouseover = ()=> {
-    if(!isPopupDisplayed) {
-      document.getElementById("play-button").style.fontSize = 24 / 100 * document.getElementById("rule").offsetWidth + "px";
-    }
-  };
-  document.getElementById("play-button").onmouseout = ()=> {
-    if(!isPopupDisplayed) {
+  const load_interval = setInterval(()=> {
+    if(audio1Loaded && audio2Loaded) {
+      clearInterval(load_interval);
+      document.getElementById("simple-loading").style.display = "none";
+      document.getElementById("potrait-screen").style.display = "block";
+      document.getElementById("rule").style.fontSize = 5.5 / 100 * document.getElementById("rule").offsetWidth + "px";
       document.getElementById("play-button").style.fontSize = 20 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("math-dash").style.fontSize = 11 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("game-developer").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("email").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("github").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("property1").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("property2").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("property3").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.querySelector(".info-heading").style.fontSize = 9 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.getElementById("play-button").onmouseover = ()=> {
+        if(!isPopupDisplayed) {
+          document.getElementById("play-button").style.fontSize = 24 / 100 * document.getElementById("rule").offsetWidth + "px";
+        }
+      };
+      document.getElementById("play-button").onmouseout = ()=> {
+        if(!isPopupDisplayed) {
+          document.getElementById("play-button").style.fontSize = 20 / 100 * document.getElementById("rule").offsetWidth + "px";
+        }
+      };
+      animationForTitle();
+      speakerDisplayed();
+      displayInfo();
     }
-  };
-  animationForTitle();
-  speakerDisplayed();
-  displayInfo();
+  },1);
 }
 // Set Play Button Clickable Then Show 3rd Page 
 const playButton = document.querySelector("#play-button");
