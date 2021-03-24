@@ -40,12 +40,10 @@ window.onresize = ()=> {
 const page2 = document.querySelector("#page2");
 let audio1Loaded = false;
 let audio2Loaded = false;
-document.getElementById("st1").load();
-document.getElementById("st2").load();
-document.getElementById("st1").onprogress = ()=> {
+document.getElementById("st1").oncanplaythrough = ()=> {
   audio1Loaded = true;
 }
-document.getElementById("st2").onprogress = ()=> {
+document.getElementById("st2").oncanplaythrough = ()=> {
   audio2Loaded = true;
 }
 window.onload = ()=> {
@@ -389,7 +387,6 @@ let isOnAudioArea;
 let isBlur = false;
 function audioPlayed() {
   if(!isAudioMuted) {
-    document.getElementById("st1").load();
     document.getElementById("st1").play();
   }
 }
@@ -406,7 +403,6 @@ window.onfocus = ()=> {
     audioPlayed();
   } else {
     if(!isAudioMuted) {
-      document.getElementById("st2").load();
       document.getElementById("st2").play();
     }
   }
