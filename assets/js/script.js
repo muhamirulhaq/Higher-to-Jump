@@ -39,6 +39,8 @@ window.onresize = ()=> {
 // Set Loading Animation
 const page1 = document.querySelector("#page1");
 const page2 = document.querySelector("#page2");
+// document.getElementById("st1").load();
+// document.getElementById("st2").load();
 window.onload = ()=> {
   document.getElementById("simple-loading").style.display = "none";
   document.getElementById("potrait-screen").style.display = "block";
