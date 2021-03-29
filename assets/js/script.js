@@ -29,6 +29,7 @@ window.onresize = ()=> {
   document.getElementById("property2").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
   document.getElementById("property3").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
   document.querySelector(".info-heading").style.fontSize = 9 / 100 * document.getElementById("rule").offsetWidth + "px";
+  document.querySelector(".more-games").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
   document.getElementById("play-button").onmouseover = ()=> {
     document.getElementById("play-button").style.fontSize = 24 / 100 * document.getElementById("rule").offsetWidth + "px";
   };
@@ -62,6 +63,7 @@ window.onload = ()=> {
       document.getElementById("property2").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
       document.getElementById("property3").style.fontSize = 6 / 100 * document.getElementById("rule").offsetWidth + "px";
       document.querySelector(".info-heading").style.fontSize = 9 / 100 * document.getElementById("rule").offsetWidth + "px";
+      document.querySelector(".more-games").style.fontSize = 5 / 100 * document.getElementById("rule").offsetWidth + "px";
       document.getElementById("play-button").onmouseover = ()=> {
         if(!isPopupDisplayed) {
           document.getElementById("play-button").style.fontSize = 24 / 100 * document.getElementById("rule").offsetWidth + "px";
@@ -189,6 +191,8 @@ for(let i = 0; i < 4; i++) {
   file[i].onmousedown = ()=> {
     if(clickable[i]) {
       if(isOnTheGround) {
+        if(!isGameStarting) CloudAPI.play();
+        gameOver();
         if(isLose) {
           l = 100;
           score = 0;
@@ -199,6 +203,7 @@ for(let i = 0; i < 4; i++) {
         }
         isLose = false;
         isGameStarted = true;
+        isGameStarting = true;
         hasBlinks = false;
         document.querySelector("#notice").style.display = "none";
         document.querySelector(".score-box").style.display = "block";
@@ -340,11 +345,13 @@ const scoreInterval = setInterval(()=> {
 },50);
 // Set Lose
 let lose_number;
+let isGameStarting = false;
 setInterval(()=> {
   if(isGameStarted) {
     lose_number = 20 / document.querySelector("#potrait-screen").offsetWidth * 100;
     if(l <= lose_number && l >= -3 && parseFloat(player.style.bottom) <= 15) {
       isLose = true;
+      isGameStarting = false;
       if(!hasBlinks) blinkedEye();
     }
   }
@@ -487,6 +494,19 @@ document.getElementById("speaker").onclick = ()=> {
     }
   }
 };
+let isSuccessfullyMuted;
+function mute() {
+  isAudioMuted = true;
+  document.getElementById("st2").muted = true;
+  isSuccessfullyMuted = true;
+}
+let isSuccessfullyUnmuted;
+function unmute() {
+  isAudioMuted = false;
+  document.getElementById("st2").muted = false;
+  document.getElementById("st2").play();
+  isSuccessfullyUnmuted = true;
+}
 function speakerDisplayed() {
   let i = 0;
   const interval = setInterval(()=> {
@@ -571,3 +591,27 @@ function displayInfo() {
     if(i >= 1) clearInterval(interval);
   },1);
 }
+function gameOver() {
+  if(!isGameStarting) {
+    const interval = setInterval(()=> {
+      if(isLose) {
+        clearInterval(interval);
+        CloudAPI.gameOver();
+      }
+    })
+  }
+}
+if(CloudAPI.logos.active()) {
+  document.querySelector(".wanted5games-logo").setAttribute("src", CloudAPI.logos.list().vertical);
+}
+CloudAPI.links.active();
+document.querySelector(".wanted5games-logo").onclick = ()=> {
+  if(CloudAPI.links.active() && !isPopupDisplayed) {
+    window.open(CloudAPI.links.list()['logo']);
+  }
+};
+document.querySelector(".more-games").onclick = ()=> {
+  if(CloudAPI.links.active() && !isPopupDisplayed) {
+    window.open(CloudAPI.links.list()['games']);
+  };
+};
