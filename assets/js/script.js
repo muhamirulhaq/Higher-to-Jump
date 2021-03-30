@@ -496,16 +496,19 @@ document.getElementById("speaker").onclick = ()=> {
 };
 let isSuccessfullyMuted;
 function mute() {
-  isAudioMuted = true;
-  document.getElementById("st2").muted = true;
-  isSuccessfullyMuted = true;
+  if(!isAudioMuted) {
+    document.querySelector("#st1").muted = true;
+    document.querySelector("#st2").muted = true;
+    isSuccessfullyMuted = true;
+  } 
 }
 let isSuccessfullyUnmuted;
 function unmute() {
-  isAudioMuted = false;
-  document.getElementById("st2").muted = false;
-  document.getElementById("st2").play();
-  isSuccessfullyUnmuted = true;
+  if(!isAudioMuted) {
+    document.querySelector("#st1").muted = false;
+    document.querySelector("#st2").muted = false;
+    isSuccessfullyUnmuted = true;
+  }
 }
 function speakerDisplayed() {
   let i = 0;
@@ -601,15 +604,8 @@ function gameOver() {
     })
   }
 }
-if(CloudAPI.logos.active()) {
-  document.querySelector(".wanted5games-logo").setAttribute("src", CloudAPI.logos.list().vertical);
-}
+CloudAPI.logos.active();
 CloudAPI.links.active();
-document.querySelector(".wanted5games-logo").onclick = ()=> {
-  if(CloudAPI.links.active() && !isPopupDisplayed) {
-    window.open(CloudAPI.links.list()['logo']);
-  }
-};
 document.querySelector(".more-games").onclick = ()=> {
   if(CloudAPI.links.active() && !isPopupDisplayed) {
     window.open(CloudAPI.links.list()['games']);

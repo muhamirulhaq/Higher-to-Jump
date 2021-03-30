@@ -6,23 +6,15 @@
   --rule-width: 0;
 }
 
-.wanted5games-logo {
-  position: absolute;
-  display: block;
-  z-index: 10;
-  right: 5px;
-  top: 5px;
-}
-
 .more-games {
   position: absolute;
   z-index: 10;
   bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   font-family: sans-serif;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 4px;
   padding: 2px 4px;
 }
@@ -617,17 +609,18 @@ body {
 }
 
 .my-info {
-  color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
   position: absolute;
   z-index: 6;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   padding: 1px;
   top: 8px;
   left: 8px;
   transform: scale(0, 0);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .italic-i {
